@@ -1,9 +1,9 @@
 metadata:
   name: wksp-9euk
 projects:
-  - name: demojam
+  - name: ansible
     source:
-      location: 'https://github.com/tonykhbo/demojam'
+      location: 'https://github.com/ansible/test-playbooks'
       type: git
       branch: master
 attributes:
@@ -29,9 +29,9 @@ components:
     type: chePlugin
 apiVersion: 1.0.0
 commands:
-  - name: 'Molecule: Lint'
+  - name: 'Ansible Version'
     actions:
       - type: exec
-        command: molecule lint
+        command: ansible --version
         component: ansible
-        workdir: /projects/ansible-role-tower-config
+        workdir: ~/
