@@ -22,3 +22,10 @@ components:
       - value: ~/
         name: HOME
 apiVersion: 1.0.0
+commands:
+   - name: home
+     actions:
+       - type: exec
+         component: ansible
+         command: cd ~/
+         workdir: ~/
