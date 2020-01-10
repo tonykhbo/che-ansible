@@ -1,5 +1,5 @@
 metadata:
-  name: ansible-wksp
+  name: ansible-wksp-
 projects:
   - name: example-playbooks
     source:
@@ -14,18 +14,11 @@ components:
       - tail
       - '-f'
       - /dev/null
+    env:
+      - name: HOME
+        value: /projects/
     memoryLimit: 512M
     type: dockerimage
     alias: ansible
     image: quay.io/sunix/che-remote-plugin-ansible
-    env:
-      - value: ~/
-        name: HOME
 apiVersion: 1.0.0
-commands:
-   - name: home
-     actions:
-       - type: exec
-         component: ansible
-         command: cd ~/
-         workdir: ~/
