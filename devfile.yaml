@@ -1,26 +1,13 @@
-apiVersion: 1.0.0
 metadata:
-  generateName: che-ansible-demo-
+  name: wksp-9euk
 projects:
-  - name: demopoc
+  - name: demojam
     source:
-      location: 'https://github.com/victorock/demopoc'
+      location: 'https://github.com/tonykhbo/demojam'
       type: git
-      branch: dev
-  - name: ansible-role-tower-config
-    source:
-      location: 'https://github.com/victorock/ansible-role-tower-config'
-      type: git
-      branch: dev
-  - name: workshops
-    source:
-      location: 'https://github.com/ansible/workshops'
-      type: git
-  - name: examples
-    source:
-      location: 'https://github.com/ansible/ansible-examples'
-      type: git
-
+      branch: master
+attributes:
+  persistVolumes: 'false'
 components:
   - alias: ansible
     type: dockerimage
@@ -34,57 +21,17 @@ components:
     env:
       - name: HOME
         value: /projects/
-
   - alias: ansible-plugin
     type: chePlugin
-    reference: https://raw.githubusercontent.com/sunix/che-ansible/master/plugin/meta.yaml
-
+    reference: >-
+      https://raw.githubusercontent.com/sunix/che-ansible/master/plugin/meta.yaml
   - id: redhat/vscode-yaml/latest
     type: chePlugin
-
+apiVersion: 1.0.0
 commands:
-  - name: "Molecule: Lint"
+  - name: 'Molecule: Lint'
     actions:
       - type: exec
         command: molecule lint
         component: ansible
         workdir: /projects/ansible-role-tower-config
-
-  - name: "Yamllint: workshops"
-    actions:
-      - type: exec
-        command: yamllint .
-        component: ansible
-        workdir: /projects/workshops
-
-  - name: "Workshop: RHEL"
-    actions:
-      - type: exec
-        command: ansible-playbook provision_lab.yml -e @sample_workshops/sample-vars-rhel.yml
-        component: ansible
-        workdir: /projects/workshops/provisioner
-
-  - name: "Workshop: Networking"
-    actions:
-      - type: exec
-        command: ansible-playbook provision_lab.yml -e @sample_workshops/sample-vars-networking.yml
-        component: ansible
-        workdir: /projects/workshops/provisioner
-
-  - name: "Workshop: Security"
-    actions:
-      - type: exec
-        command: ansible-playbook provision_lab.yml -e @sample_workshops/sample-vars-security.yml
-        component: ansible
-        workdir: /projects/workshops/provisioner
-
-  - name: "Workshop: F5"
-    actions:
-      - type: exec
-        command: ansible-playbook provision_lab.yml -e @sample_workshops/sample-vars-f5.yml
-        component: ansible
-        workdir: /projects/workshops/provisioner
-
-
-
-
