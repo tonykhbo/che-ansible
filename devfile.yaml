@@ -1,7 +1,7 @@
 metadata:
-  name: wksp-9euk
+  name: ansible-wksp
 projects:
-  - name: ansible
+  - name: example-playbooks
     source:
       location: 'https://github.com/ansible/test-playbooks'
       type: git
@@ -9,29 +9,16 @@ projects:
 attributes:
   persistVolumes: 'false'
 components:
-  - alias: ansible
-    type: dockerimage
-    image: quay.io/sunix/che-remote-plugin-ansible
-    memoryLimit: 512M
-    mountSources: true
+  - mountSources: true
     args:
       - tail
       - '-f'
       - /dev/null
+    memoryLimit: 512M
+    type: dockerimage
+    alias: ansible
+    image: quay.io/sunix/che-remote-plugin-ansible
     env:
-      - name: HOME
-        value: /projects/
-  - alias: ansible-plugin
-    type: chePlugin
-    reference: >-
-      https://raw.githubusercontent.com/sunix/che-ansible/master/plugin/meta.yaml
-  - id: redhat/vscode-yaml/latest
-    type: chePlugin
+      - value: ~/
+        name: HOME
 apiVersion: 1.0.0
-commands:
-  - name: 'Ansible Version'
-    actions:
-      - type: exec
-        command: ansible --version
-        component: ansible
-        workdir: ~/
